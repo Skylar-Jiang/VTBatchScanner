@@ -21,7 +21,7 @@ Python 程序负责批量查询和显式文件上传；React 网页提供输入�
 
 ## 快速开始
 
-以下命令使用 Windows PowerShell。需要 Git、Python 3.12+、Node.js 和 npm；前端当前锁定的 Vite 要求 Node.js `20.19+`（20.x）或 `22.12+`，本项目已在 Node.js 24.19.0 下验证。
+以下命令使用 Windows PowerShell。需要 Git、Python 3.12+、Node.js 和 npm；前端当前锁定的 Vite 要求 Node.js `20.19+`（20.x）或 `22.12+`。
 
 ### 1. 获取项目并安装后端依赖
 
@@ -141,16 +141,6 @@ Cerber.exe,efcbb009243e2f590351c1bdd6456e140d2711439906674d8d57a17f5c287c98
 XLSX 和报告包同样只读取本地结果；报告包包含该批次的汇总及单样本 Markdown，可整体解压后离线查看。
 
 样本库中“文件样本”“哈希查询”“上传记录”对应命令行 A/B 分组的保存记录，依赖本地输入清单与实验结果；普通网页创建的任务在“全部记录”中查看。
-
-### 页面示例
-
-文件历史报告：
-
-![文件历史报告列表](docs/screenshots/file-reports.png)
-
-独立保存的文件上传分析：
-
-![文件上传分析记录](docs/screenshots/upload-records.png)
 
 ## 查询、刷新与文件上传
 
@@ -302,7 +292,7 @@ cd backend
 
 仓库示例包括 116 个文件报告和 100 个哈希报告，涉及 215 个唯一哈希，均来自已保存的检测结果，不是本次重新查询。文件输入的实际数量为 116，本项目纳入了全部可读取文件。
 
-实现索引与可用于报告的代码节选见 [report-code-map.md](docs/report-code-map.md)；架构和完整请求链见 [architecture.md](docs/architecture.md)。
+模块关系与请求流程见 [architecture.md](docs/architecture.md)。
 
 ## 离线测试
 
@@ -318,7 +308,7 @@ npm test
 npm run build
 ```
 
-已有测试覆盖正常响应、无效哈希、404、401 / 403、429、超时、网络异常、缓存、限速、续跑、上传状态、Markdown、CSV/XLSX 超链接及报告包导出。最终验证记录见 [verification-public.md](docs/verification-public.md)。
+测试覆盖正常响应、无效哈希、404、401 / 403、429、超时、网络异常、缓存、限速、续跑、上传状态、Markdown、CSV/XLSX 超链接及报告包导出。
 
 测试命令将当前终端的 Key 变量设为空。测试后启动真实查询前，移除这两个变量或使用新终端，避免它们遮蔽 `.env.local`。
 
@@ -361,7 +351,7 @@ VTBatchScanner/
 │   ├── generate_report.py       # 原有简洁实验报告生成器
 │   └── generate_detection_reports.py # 离线补建单样本报告与便携包
 ├── frontend/                    # React / TypeScript / Vite / shadcn/ui
-├── docs/screenshots/            # 页面示例
+├── docs/architecture.md         # 系统架构与请求流程
 ├── results/                     # Markdown 报告、索引及公开历史示例
 ├── .env.example                 # 空密钥配置模板
 └── README.md

@@ -27,6 +27,10 @@ __pycache__/
 *.exe
 *.dll
 
+# Publish architecture documentation; keep other docs local.
+docs/*
+!docs/architecture.md
+
 # Keep runtime results private; publish only the reviewed example summaries.
 results/*
 !results/summary.csv

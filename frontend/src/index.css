@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #09111c;
+  --color-foreground: #e5edf8;
+  --color-card: #101c2c;
+  --color-card-foreground: #e5edf8;
+  --color-popover: #101c2c;
+  --color-popover-foreground: #e5edf8;
+  --color-primary: #38bdf8;
+  --color-primary-foreground: #08111c;
+  --color-secondary: #1d2a3b;
+  --color-secondary-foreground: #e5edf8;
+  --color-muted: #172334;
+  --color-muted-foreground: #94a3b8;
+  --color-accent: #1d2a3b;
+  --color-accent-foreground: #e5edf8;
+  --color-destructive: #f87171;
+  --color-border: #263548;
+  --color-input: #263548;
+  --color-ring: #38bdf8;
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body { min-width: 320px; background: var(--color-background); color: var(--color-foreground); font-family: Inter, "Noto Sans SC", ui-sans-serif, system-ui, sans-serif; }
+  button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
+}
+
+@layer components {
+  .panel { border: 1px solid rgba(255,255,255,.08); border-radius: .75rem; background: #0e1928; box-shadow: 0 16px 36px rgba(0,0,0,.14); }
+  .eyebrow { font-size: .68rem; font-weight: 600; letter-spacing: .16em; color: #38bdf8; }
+}

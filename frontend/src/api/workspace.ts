@@ -1,0 +1,10 @@
+import { apiRequest } from './client';
+import type { Risk, ProviderStatus, SampleRow } from '@/lib/workspace';
+
+export type Report = { risk: Risk; stats: Record<string, number>; totalEngines: number; analysisTime: string | null; fileName: string | null; fileType: string | null; engines: Record<string, {category: string; result: string | null; engine_name?: string}> };
+export type StoredSample = { sha256: string; risk: Risk; status: SampleRow['status']; lastAnalysisAt: string | null; riskSources: string[]; providerStatuses: {virustotal: ProviderStatus; cn_platform: ProviderStatus}; detectionReports?: {filename:string;source:string;url:string}[]; reportError?:string|null; providerResults?: {provider: string; status: ProviderStatus; report: Report | null; error: string | null; queriedAt: string | null; fromCache: boolean}[] };
+export type Batch = {id: string; name: string; sampleCount: number; status: string; createdAt: string; progress: {percent: number; succeeded: number; notFound: number; failed: number; terminalProviderJobs: number; totalProviderJobs: number}};
+export type Dashboard = {samples: {total: number; completed: number; analyzing: number; failed: number}; riskDistribution: Record<Risk, number>; requestBudget: {dailyLimit: number; used: number; remaining: number; accountVerified: boolean}};
+export function getLocalData<T>(path: string) { return apiRequest<{data: T}>(path).then(response => response.data); }
+export function batchOperation(id: string, operation: 'resume' | 'refresh') { return apiRequest(`/batches/${id}/${operation}`, {method:'POST', body: JSON.stringify({providers:['virustotal'], acknowledgeQuotaCost:true})}); }
+export function sampleRow(sample: StoredSample): SampleRow { return {sha256:sample.sha256, risk:sample.risk, status:sample.status, fileName:sample.providerResults?.filter(result=>result.provider==='virustotal').at(-1)?.report?.fileName ?? null, lastAnalysisAt:sample.lastAnalysisAt, riskSource:sample.riskSources, virustotal:sample.providerStatuses.virustotal, cnPlatform:sample.providerStatuses.cn_platform}; }
